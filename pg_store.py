@@ -61,7 +61,49 @@ class Store(object):
         return results
 
     @tornado.gen.coroutine
+    def pg_select_columns_from_w_distinct(self, table, columns=[], conditions=[], order_by=None, sort_order="DESC", limit=None, offset=None):
+        statement = "SELECT DISTINCT "
+        if columns:
+            statement += ", ".join(columns)
+        statement += " FROM {0}\n".format(table)
+        if conditions:
+            statement += "WHERE "
+            statement += " AND\n".join(conditions)
+            statement += "\n"
+        if order_by is not None:
+            order_by = '"' + order_by + '"'
+            statement += "ORDER BY {0} {1}\n".format(order_by, sort_order)
+        if limit is not None:
+            statement += "LIMIT {0}\n".format(limit)
+        if offset is not None:
+            statement += "OFFSET {0}\n".format(offset)
+        statement += ";"
+        results = yield self.execute_sql_statement_with_fetch(statement)
+        return results
+
+    @tornado.gen.coroutine
+    def pg_select_all_from_w_distinct_on(self, table, columns=[], conditions=[], order_by_columns=[], sort_order="DESC", limit=None, offset=None):
+        statement = "SELECT DISTINCT ON ("
+        if columns:
+            statement += ", ".join(columns)
+        statement += "\n) * "
+        statement += " FROM {0}\n".format(table)
+        if conditions:
+            statement += "WHERE "
+            statement += " AND\n".join(conditions)
+            statement += "\n"
+        if order_by_columns:
+            statement += "ORDER BY "
+            statement += ",".join(order_by_columns);
+            statement += " " + sort_order
+        statement += ";"
+        results = yield self.execute_sql_statement_with_fetch(statement)
+        return results
+
+    @tornado.gen.coroutine
     def pg_update_all(self, table, columns=[], values=[], conditions=[]):
+        for i in range(0, len(values)):
+            values[i] = "$token$" + values[i] + "$token$"
         statement = "UPDATE {0} SET (\n".format(table)
         statement += ",\n".join(columns)
         statement += ") "
@@ -78,6 +120,8 @@ class Store(object):
 
     @tornado.gen.coroutine
     def pg_insert_into(self, table, columns=[], values=[]):
+        for i in range(0, len(values)):
+            values[i] = "$token$" + values[i] + "$token$"
         statement = "INSERT INTO {0} (\n".format(table)
         statement += ",\n".join(columns)
         statement += ")\n"
@@ -94,7 +138,17 @@ class Store(object):
         results = yield self.execute_sql_statement(statement)
         return results
 
-
+    @tornado.gen.coroutine
+    def pg_count_all_from(self, table, conditions):
+        statement = "SELECT COUNT(*) "
+        statement += " FROM {0}\n".format(table)
+        if conditions:
+            statement += "WHERE "
+            statement += " AND\n".join(conditions)
+            statement += "\n"
+            statement += ";"
+        results = yield self.execute_sql_statement_with_fetch(statement)
+        return results
 
 
 
