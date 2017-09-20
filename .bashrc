@@ -88,6 +88,10 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias tma='tmux attach -t'
+alias tml='tmux ls'
+alias tmn='tmux new -s'
+alias tms='tmux switch -t'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -114,3 +118,7 @@ if ! shopt -oq posix; then
 fi
 
 stty -ixon
+
+export LC_ALL=C
+export VISUAL=vim
+export EDITOR="$VISUAL"

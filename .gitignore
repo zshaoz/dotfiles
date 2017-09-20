@@ -1,1 +1,8 @@
+.DS_Store
+*.swp
 *.pyc
+.gitbranches
+venv
+venv2
+venv3
+.session
