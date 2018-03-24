@@ -123,7 +123,8 @@ stty -ixon
 export CLICOLOR=1
 
 ## Set colors to match iTerm2 Terminal Colors
-export TERM=xterm-256color
+# export TERM=xterm-256color
+if [[ $TERM == xterm  ]]; then TERM=xterm-256color; fi
 
 #export PS1="\[$(tput bold)\]\[$(tput setaf 2)\]\u:~$ \[$(tput sgr0)\]"
 export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
