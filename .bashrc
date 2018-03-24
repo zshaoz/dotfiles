@@ -88,7 +88,6 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias ls='ls -G'
 alias tma='tmux attach -t'
 alias tml='tmux ls'
 alias tmn='tmux new -s'
