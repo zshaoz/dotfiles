@@ -5,3 +5,6 @@
 [alias]
     lg = log --oneline --graph --decorate
     st = status
+    ci = commit
+    co = checkout
+    di = diff
