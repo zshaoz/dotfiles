@@ -3,5 +3,5 @@
     name = Andy Yan
 	email = andy_yan315@hotmail.com
 [alias]
-    lg = log --oneline --graph --decorate --all
+    lg = log --oneline --graph --decorate
     st = status
