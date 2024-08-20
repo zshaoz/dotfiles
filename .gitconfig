@@ -1,0 +1,7 @@
+# This is Git's per-user configuration file.
+[user]
+    name = Andy Yan
+	email = andy_yan315@hotmail.com
+[alias]
+    lg = log --oneline --graph --decorate --all
+    st = status
