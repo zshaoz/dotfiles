@@ -137,6 +137,8 @@ export LC_ALL='en_US.utf8'
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
+# for homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
